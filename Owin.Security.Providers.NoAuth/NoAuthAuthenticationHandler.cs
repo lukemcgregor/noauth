@@ -66,8 +66,8 @@ namespace Owin.Security.Providers.NoAuth
                 var body = new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                    //new KeyValuePair<string, string>("client_id", Options.ClientId),
-                    //new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                    new KeyValuePair<string, string>("client_id", Options.ClientId),
+                    new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
                     new KeyValuePair<string, string>("redirect_uri", redirectUri),
                     new KeyValuePair<string, string>("code", code)
                 };
