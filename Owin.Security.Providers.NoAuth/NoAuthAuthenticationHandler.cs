@@ -180,7 +180,7 @@ namespace Owin.Security.Providers.NoAuth
             var authorizationEndpoint =
                 Options.Endpoints.AuthorizationEndpoint +
                 "?response_type=code" +
-                //"&client_id=" + Uri.EscapeDataString(Options.ClientId) +
+                "&client_id=" + Uri.EscapeDataString(Options.ClientId) +
                 "&redirect_uri=" + Uri.EscapeDataString(redirectUri) +
                 "&state=" + Uri.EscapeDataString(state)
                 ;
