@@ -15,15 +15,20 @@ namespace Owin.Security.Providers.NoAuth
             app.Use(typeof(NoAuthAuthenticationMiddleware), app, options);
 
             return app;
-        }
+		}
 
-        public static IAppBuilder UseNoAuthAuthentication(this IAppBuilder app, string clientId, string clientSecret)
-        {
-            return app.UseNoAuthAuthentication(new NoAuthAuthenticationOptions
-            {
-                ClientId = clientId,
-                ClientSecret = clientSecret
-            });
-        }
-    }
+		public static IAppBuilder UseNoAuthAuthentication(this IAppBuilder app, string clientId, string clientSecret)
+		{
+			return app.UseNoAuthAuthentication(new NoAuthAuthenticationOptions
+			{
+				ClientId = clientId,
+				ClientSecret = clientSecret
+			});
+		}
+
+		public static IAppBuilder UseNoAuthAuthentication(this IAppBuilder app)
+		{
+			return app.UseNoAuthAuthentication(new NoAuthAuthenticationOptions());
+		}
+	}
 }
