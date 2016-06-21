@@ -28,7 +28,7 @@ namespace Owin.Security.Providers.NoAuth
 
 		public static IAppBuilder UseNoAuthAuthentication(this IAppBuilder app)
 		{
-			return app.UseNoAuthAuthentication(new NoAuthAuthenticationOptions());
+			return app.UseNoAuthAuthentication(new NoAuthAuthenticationOptions { ClientId = "None", ClientSecret = "None" });
 		}
 	}
 }

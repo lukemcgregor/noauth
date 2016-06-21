@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion(AssemblyMeta.Version)]
 [assembly: AssemblyFileVersion(AssemblyMeta.Version)]
-[assembly: AssemblyInformationalVersion(AssemblyMeta.Version + "-beta3")]
+[assembly: AssemblyInformationalVersion(AssemblyMeta.Version + "-beta4")]
 
 internal static class AssemblyMeta
 {
