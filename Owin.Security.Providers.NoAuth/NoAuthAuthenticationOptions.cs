@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
@@ -9,13 +10,14 @@ namespace Owin.Security.Providers.NoAuth
     {
         public class NoAuthAuthenticationEndpoints
         {
+			private static string _baseUrl = ConfigurationManager.AppSettings["noauth.baseurl"] ?? "http://noauth.azurewebsites.net";
 			/// <summary>
 			/// Endpoint which is used to redirect users to request  access
 			/// </summary>
 			/// <remarks>
 			/// Defaults to https://app..com/-/oauth_authorize
 			/// </remarks>
-			public string AuthorizationEndpoint { get; set; } = "http://noauth.azurewebsites.net/oauth/authorize";
+			public string AuthorizationEndpoint { get; set; } = _baseUrl + "/oauth/authorize";
 
 			/// <summary>
 			/// Endpoint which is used to exchange code for access token
@@ -23,7 +25,7 @@ namespace Owin.Security.Providers.NoAuth
 			/// <remarks>
 			/// Defaults to https://app..com/-/oauth_token
 			/// </remarks>
-			public string TokenEndpoint { get; set; } = "http://noauth.azurewebsites.net/oauth/token";
+			public string TokenEndpoint { get; set; } = _baseUrl + "/oauth/token";
 
 			/// <summary>
 			/// Endpoint which is used to obtain user information after authentication
@@ -31,7 +33,7 @@ namespace Owin.Security.Providers.NoAuth
 			/// <remarks>
 			/// Defaults to https://.com/1/OAuthGetRequestToken
 			/// </remarks>
-			public string UserInfoEndpoint { get; set; } = "http://noauth.azurewebsites.net/account/info";
+			public string UserInfoEndpoint { get; set; } = _baseUrl + "/account/info";
 		}
 
 
