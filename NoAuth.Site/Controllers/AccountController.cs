@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -26,14 +27,29 @@ namespace NoAuth.Site.Controllers
 		public ActionResult LogOn(string returnUrl)
 		{
 			ViewBag.ReturnUrl = returnUrl;
-			return View();
+
+			var defaultClaimTypes = new List<string> {
+				"Name",
+				"Email"
+			};
+
+			return View(new
+			{
+				AvailiableClaimTypes = typeof(ClaimTypes)
+					.GetFields(BindingFlags.Public | BindingFlags.Static)
+					.Where(fi => fi.IsLiteral && !fi.IsInitOnly)
+					.Select(x => new { Name = x.Name, Value = x.GetRawConstantValue(), Default = defaultClaimTypes.Contains(x.Name) })
+			});
 		}
 
 		[HttpPost]
 		public ActionResult LogOn(string returnUrl, LoginModel model)
 		{
 			var id = Guid.NewGuid().ToString();
-			_userStore.Users[id] = model.Claims?.Select(x => new Tuple<string, string>(x.Type, x.Value)).ToList();
+			_userStore.Users[id] = model.Claims
+				?.Where(x=> !string.IsNullOrWhiteSpace(x.Type) && !string.IsNullOrWhiteSpace(x.Value))
+				?.Select(x => new Tuple<string, string>(x.Type, x.Value))
+				?.ToList();
 
 			FormsAuthentication.SetAuthCookie(id, true);
 

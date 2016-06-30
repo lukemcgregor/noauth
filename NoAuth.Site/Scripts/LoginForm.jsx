@@ -2,12 +2,14 @@
 
 import React from 'react';
 import update from 'react-addons-update';
+import _ from 'lodash';
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			claimedIdentifier: this.guid(),
+			loading: true,
 			claims: []
 		};		
 		this.addClaim = this.addClaim.bind(this);		
@@ -15,6 +17,33 @@ export default class LoginForm extends React.Component {
 		this.claimedIdentifierChanged = this.claimedIdentifierChanged.bind(this);		
 		this.claimTypeChanged = this.claimTypeChanged.bind(this);		
 		this.claimValueChanged = this.claimValueChanged.bind(this);
+
+	}
+	componentDidMount(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'https://randomuser.me/api/', true);		
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.onload = (() => {
+			var claims = this.state.claims.slice(0);
+			_.forEach(this.props.availableClaims, (x)=>{
+				if(x.Default){
+					var val = JSON.parse(xhr.responseText).results[0][x.Name.toLowerCase()];
+					if(typeof val === 'object'){
+						if(val.first){
+							val = val.first + ' ' + val.last;
+						}
+						else{
+							val = '';
+						}
+					}
+
+					claims.push({type: x.Value, value:val });
+				}
+			});
+			this.setState({claims: claims, loading:false});
+		}).bind(this);
+		xhr.send();
 	}
 	guid() {
 		function s4() {
@@ -49,6 +78,10 @@ export default class LoginForm extends React.Component {
 		this.setState({claims: claims});
 	}
 	renderClaims() {
+		if(this.state.loading){
+			return (<span className='loading'>Loading fake user</span>);
+		}
+
 		return this.state.claims.map((claim, index)=>
 		{
 			return (<div className='form-group' key={index}>
@@ -76,7 +109,7 @@ export default class LoginForm extends React.Component {
 				</div>
 				<div className="form-group">
 					<div className="col-md-12" style={{textAlign: 'center', marginTop: '40px'}}> 
-						<button type="submit" className="btn btn-default">Log in</button>
+						<button type="submit" className="btn btn-lg btn-success" disabled={this.state.loading}>Log in</button>
 					</div>
 				</div>
 			</form>

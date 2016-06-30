@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model object
+@using Newtonsoft.Json;
+
+<!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
@@ -33,7 +36,9 @@
 			<div id="login-form-mount-node" />
 		</div>
 	</div>
-
+	<script>
+		State = @(Html.Raw(JsonConvert.SerializeObject(Model, new JsonSerializerSettings{ StringEscapeHandling = StringEscapeHandling.EscapeHtml })));
+	</script>
 	<script src="/dist/login.entry.js"></script>
 </body>
 </html>
