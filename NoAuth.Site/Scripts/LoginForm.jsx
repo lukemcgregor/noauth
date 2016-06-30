@@ -119,7 +119,7 @@ export default class LoginForm extends React.Component {
 				</div>
 				<div className="form-group">
 					<div className="col-md-12" style={{textAlign: 'center', marginTop: '40px'}}> 
-						<button type="submit" className="btn btn-lg btn-success" disabled={this.state.loading}>Log in</button>
+						<button id='login' type="submit" className="btn btn-lg btn-success" disabled={this.state.loading}>Log in</button>
 					</div>
 				</div>
 			</form>
