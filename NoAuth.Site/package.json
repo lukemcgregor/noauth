@@ -7,9 +7,9 @@
     "dev": ".\\node_modules\\.bin\\webpack --colors --watch"
   },
   "dependencies": {
-    "react": "15.1.0",
-    "react-dom": "15.1.0",
-    "react-addons-update": "15.1.0",
+    "react": "0.14.8",
+    "react-dom": "0.14.8",
+    "react-addons-update": "0.14.8",
     "lodash": "4.13.1",
     "react-select": "0.9.1"
   },
