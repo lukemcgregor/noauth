@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetOpenAuth.OAuth.Common</name>
+    </assembly>
+    <members>
+        <member name="T:DotNetOpenAuth.OAuth.ChannelElements.OAuthPrincipal">
+            <summary>
+            Utilities for dealing with OAuth claims and principals.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenAuth.OAuth.ChannelElements.OAuthPrincipal.CreatePrincipal(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new instance of ClaimsPrincipal.
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <param name="roles">The roles.</param>
+            <returns>
+            A new instance of GenericPrincipal with a GenericIdentity, having the same username and roles as this OAuthPrincipal and OAuthIdentity
+            </returns>
+        </member>
+        <member name="T:DotNetOpenAuth.OAuth.DefaultOAuthHostFactories">
+            <summary>
+            Creates default instances of required dependencies.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenAuth.OAuth.DefaultOAuthHostFactories.CreateHttpMessageHandler">
+            <summary>
+            Initializes a new instance of a concrete derivation of <see cref="T:System.Net.Http.HttpMessageHandler" />
+            to be used for outbound HTTP traffic.
+            </summary>
+            <returns>An instance of <see cref="T:System.Net.Http.HttpMessageHandler"/>.</returns>
+            <remarks>
+            An instance of <see cref="T:System.Net.Http.WebRequestHandler" /> is recommended where available;
+            otherwise an instance of <see cref="T:System.Net.Http.HttpClientHandler" /> is recommended.
+            </remarks>
+        </member>
+        <member name="M:DotNetOpenAuth.OAuth.DefaultOAuthHostFactories.CreateHttpClient(System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Net.Http.HttpClient" /> class
+            to be used for outbound HTTP traffic.
+            </summary>
+            <param name="handler">The handler to pass to the <see cref="T:System.Net.Http.HttpClient" /> constructor.
+            May be null to use the default that would be provided by <see cref="M:DotNetOpenAuth.OAuth.DefaultOAuthHostFactories.CreateHttpMessageHandler" />.</param>
+            <returns>
+            An instance of <see cref="T:System.Net.Http.HttpClient" />.
+            </returns>
+        </member>
+    </members>
+</doc>

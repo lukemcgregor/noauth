@@ -102,32 +102,33 @@ namespace Owin.Security.Providers.NoAuth
                  */
 
 				// Get the GitHub user
-				var userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint + "?accesstoken=" + Uri.EscapeDataString(accessToken));
+				var userRequest = new HttpRequestMessage(HttpMethod.Get, Options.Endpoints.UserInfoEndpoint );
 				userRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                userRequest.Headers.Add("Authorization", "Bearer " + accessToken);
 				var userResponse = await _httpClient.SendAsync(userRequest, Request.CallCancelled);
 				userResponse.EnsureSuccessStatusCode();
 				text = await userResponse.Content.ReadAsStringAsync();
-				var user = JObject.Parse(text);
-
-
-				var context = new NoAuthAuthenticatedContext(Context, user, accessToken)
+				dynamic user = JsonConvert.DeserializeObject<NoAuthIdentityResponse>(text);
+                
+                var context = new NoAuthAuthenticatedContext(Context, user, accessToken)
                 {
                     Identity = new ClaimsIdentity(
                         Options.AuthenticationType,
                         ClaimsIdentity.DefaultNameClaimType,
                         ClaimsIdentity.DefaultRoleClaimType)
                 };
-				if (!string.IsNullOrEmpty(context.Id))
-				{
-					context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
-				}
-				if (!string.IsNullOrEmpty(context.Name))
-				{
-					context.Identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, context.Name, XmlSchemaString, Options.AuthenticationType));
-				}
-				if (!string.IsNullOrEmpty(context.Email))
+
+                if (!string.IsNullOrEmpty(context.Id))
                 {
-                    context.Identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, XmlSchemaString, Options.AuthenticationType));
+                    context.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, XmlSchemaString, Options.AuthenticationType));
+                }
+
+                if (user.Claims != null)
+                {
+                    foreach (Tuple<string,string> claim in user.Claims)
+                    {
+                        context.Identity.AddClaim(new Claim(claim.Item1, claim.Item2, XmlSchemaString, Options.AuthenticationType));
+                    }
                 }
                 context.Properties = properties;
 

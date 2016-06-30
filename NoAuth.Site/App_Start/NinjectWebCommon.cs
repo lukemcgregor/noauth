@@ -64,6 +64,9 @@ namespace NoAuth.Site.App_Start
         {
             kernel.Bind<IAuthorizationServerHost>().To<NoAuthAuthorizationServer>();
             kernel.Bind<IUserStore, ICryptoKeyStore, INonceStore>().To<InMemoryStore>().InSingletonScope();
+            kernel.Bind<IAccessTokenAnalyzer>().To<StandardAccessTokenAnalyzer>()
+                .WithConstructorArgument("authorizationServerPublicSigningKey", Keys.GetAuthorizationServerSigningPublicKey())
+                .WithConstructorArgument("resourceServerPrivateEncryptionKey", Keys.GetResourceServerEncryptionPrivateKey());
         }
     }
 }

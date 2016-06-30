@@ -19,14 +19,12 @@ namespace Owin.Security.Providers.NoAuth
         /// <param name="context">The OWIN environment</param>
         /// <param name="user">The JSON-serialized user</param>
         /// <param name="accessToken"> Access token</param>
-        public NoAuthAuthenticatedContext(IOwinContext context, dynamic user, string accessToken)
+        public NoAuthAuthenticatedContext(IOwinContext context, NoAuthIdentityResponse user, string accessToken)
             : base(context)
         {
             User = user;
             AccessToken = accessToken;
 			Id = user.Id;
-			Name = user.Name;
-			Email = user.Email;
         }
 
         /// <summary>
@@ -36,7 +34,7 @@ namespace Owin.Security.Providers.NoAuth
         /// Contains the  user obtained from the User Info endpoint. By default this is https://.com/1/OAuthGetRequestToken but it can be
         /// overridden in the options
         /// </remarks>
-        public JObject User { get; private set; }
+        public NoAuthIdentityResponse User { get; private set; }
 
         /// <summary>
         /// Gets the  access token

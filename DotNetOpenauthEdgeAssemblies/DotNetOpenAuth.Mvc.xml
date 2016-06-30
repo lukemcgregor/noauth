@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetOpenAuth.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:DotNetOpenAuth.Messaging.MvcExtensions">
+            <summary>
+            DotNetOpenAuth extensions for ASP.NET MVC.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenAuth.Messaging.MvcExtensions.AsActionResult(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Wraps a response message as an MVC <see cref="T:System.Web.Mvc.ActionResult"/> so it can be conveniently returned from an MVC controller's action method.
+            </summary>
+            <param name="response">The response message.</param>
+            <returns>An <see cref="T:System.Web.Mvc.ActionResult"/> instance.</returns>
+        </member>
+        <member name="T:DotNetOpenAuth.Messaging.MvcExtensions.HttpResponseMessageActionResult">
+            <summary>
+            An MVC <see cref="T:System.Web.Mvc.ActionResult"/> that wraps an <see cref="T:System.Net.Http.HttpResponseMessage"/>
+            </summary>
+        </member>
+        <member name="F:DotNetOpenAuth.Messaging.MvcExtensions.HttpResponseMessageActionResult.response">
+            <summary>
+            The wrapped response.
+            </summary>
+        </member>
+        <member name="M:DotNetOpenAuth.Messaging.MvcExtensions.HttpResponseMessageActionResult.#ctor(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotNetOpenAuth.Messaging.MvcExtensions.HttpResponseMessageActionResult"/> class.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="M:DotNetOpenAuth.Messaging.MvcExtensions.HttpResponseMessageActionResult.ExecuteResult(System.Web.Mvc.ControllerContext)">
+            <summary>
+            Enables processing of the result of an action method by a custom type that inherits from the <see cref="T:System.Web.Mvc.ActionResult" /> class.
+            </summary>
+            <param name="context">The context in which the result is executed. The context information includes the controller, HTTP content, request context, and route data.</param>
+        </member>
+    </members>
+</doc>

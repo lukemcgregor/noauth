@@ -9,14 +9,14 @@ namespace NoAuth.Site.OAuth
 {
     public interface IUserStore
     {
-        Dictionary<string, List<Claim>> Users { get; }
+        Dictionary<string, List<Tuple<string, string>>> Users { get; }
     }
 
     public class InMemoryStore : INonceStore, ICryptoKeyStore, IUserStore
     {
         private Dictionary<string, Dictionary<string, CryptoKey>> _keys = new Dictionary<string, Dictionary<string, CryptoKey>>();
 
-        public Dictionary<string, List<Claim>> Users { get; set; } = new Dictionary<string, List<Claim>>();
+        public Dictionary<string, List<Tuple<string, string>>> Users { get; set; } = new Dictionary<string, List<Tuple<string, string>>>();
 
         public CryptoKey GetKey(string bucket, string handle)
         {

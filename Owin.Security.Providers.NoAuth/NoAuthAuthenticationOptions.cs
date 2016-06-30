@@ -84,12 +84,12 @@ namespace Owin.Security.Providers.NoAuth
         /// <summary>
         ///     Gets or sets the  supplied Client ID
         /// </summary>
-        public string ClientId { get; set; }
+        public string ClientId { get; set; } = "None";
 
         /// <summary>
         ///     Gets or sets the  supplied Client Secret
         /// </summary>
-        public string ClientSecret { get; set; }
+        public string ClientSecret { get; set; } = "None";
 
         /// <summary>
         /// Gets the sets of OAuth endpoints used to authenticate against .  Overriding these endpoints allows you to use  Enterprise for

@@ -2,58 +2,71 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using DotNetOpenAuth.OAuth2;
 using NoAuth.Site.OAuth;
 
 namespace NoAuth.Site.Controllers
 {
-	public class AccountController : Controller
-	{
-		private readonly IUserStore _userStore;
+    public class AccountController : Controller
+    {
+        private readonly ResourceServer _authorizationServer;
+        private readonly IUserStore _userStore;
 
-		public AccountController(IUserStore userStore)
-		{
-			_userStore = userStore;
-		}
+        public AccountController(IUserStore userStore, ResourceServer authServer)
+        {
+            _authorizationServer = authServer;
 
-		public ActionResult LogOn(string returnUrl)
-		{
-			ViewBag.ReturnUrl = returnUrl;
-			return View();
-		}
+            _userStore = userStore;
+        }
 
-		[HttpPost]
-		public ActionResult LogOn(string returnUrl, LoginModel model)
-		{
-			var id = Guid.NewGuid().ToString();
-			_userStore.Users[id] = new List<System.Security.Claims.Claim>
-			{
-				new Claim(ClaimTypes.Name, model.Name),
-				new Claim(ClaimTypes.Email, model.Email)
-			};
+        public ActionResult LogOn(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
 
-			FormsAuthentication.SetAuthCookie(id, true);
+        [HttpPost]
+        public ActionResult LogOn(string returnUrl, LoginModel model)
+        {
+            var id = Guid.NewGuid().ToString();
+            _userStore.Users[id] = new List<Tuple<string, string>>
+            {
+                new Tuple<string,string>(ClaimTypes.Name, model.Name),
+                new Tuple<string,string>(ClaimTypes.Email, model.Email)
+            };
 
-			return Redirect(returnUrl);
-		}
+            FormsAuthentication.SetAuthCookie(id, true);
 
-		public ActionResult Info(string accessToken)
-		{
-			//TODO make this pull from the datas the user typed in
-			return Json(new
-			{
-				Id = "qq",
-				Name = "Joe",
-				Email = "sffs@dfss.con"
-			}, JsonRequestBehavior.AllowGet);
-		}
-	}
+            return Redirect(returnUrl);
+        }
 
-	public class LoginModel
-	{
-		public string Name { get; set; }
-		public string Email { get; set; }
-	}
+        public async Task<ActionResult> Info(string accessToken)
+        {
+            try
+            {
+                var at = await _authorizationServer.GetAccessTokenAsync(Request);
+
+                return Json(new
+                {
+                    Id = at.User,
+                    Claims = _userStore.Users.ContainsKey(at.User) ? _userStore.Users[at.User] : new List<Tuple<string, string>>()
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
+        }
+    }
+
+    public class LoginModel
+    {
+        public string ClaimedIdentifier { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
 }
