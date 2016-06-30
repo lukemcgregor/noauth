@@ -3,6 +3,8 @@
 import React from 'react';
 import update from 'react-addons-update';
 import _ from 'lodash';
+import Select from 'react-select';
+require('react-select/dist/react-select.css');
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
@@ -65,9 +67,9 @@ export default class LoginForm extends React.Component {
 	claimedIdentifierChanged(e){
 		this.setState({claimedIdentifier: e.target.value});
 	}		
-	claimTypeChanged(index,e){
+	claimTypeChanged(index,value){
 		var claims = update(this.state.claims, {
-			[index]: {type:{$set: e.target.value }}
+			[index]: {type:{$set: value }}
 		});
 		this.setState({claims: claims});
 	}	
@@ -86,7 +88,15 @@ export default class LoginForm extends React.Component {
 		{
 			return (<div className='form-group' key={index}>
 				<div className="col-md-offset-1 col-md-5">
-					<input className='claim-type' name={`Claims[${index}].Type`} className='form-control' placeholder='Claim Type' value={claim.type} onChange={this.claimTypeChanged.bind(this,index)} />
+					<Select 
+						name={`Claims[${index}].Type`} 
+						className='claim-type' 
+						placeholder='Claim Type' 
+						value={claim.type} 
+						allowCreate
+						addLabelText='{label}'
+						onChange={this.claimTypeChanged.bind(this,index)} 
+						options={_.map(this.props.availableClaims,(x)=>{return { value: x.Value, label: x.Value } })} />
 				</div>
 				<div className="col-md-5">
 					<input className='claim-value' name={`Claims[${index}].Value`} className='form-control' placeholder='Claim Value' value={claim.value} onChange={this.claimValueChanged.bind(this,index)} />

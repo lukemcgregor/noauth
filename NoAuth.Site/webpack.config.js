@@ -10,16 +10,23 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].entry.js',
-    publicPath:'dist'
+    publicPath: 'dist'
   },
   module: {
-    loaders: [
-	   {
-	     test: /(\.js)|(\.jsx)$/,
-	     exclude: /node_modules/,
-	     loaders: ['babel-loader?cacheDirectory=true,presets[]=es2015,presets[]=react']
-	   }
-	  ]
+	loaders: [{
+		test: /\.css$/,
+		loaders:["style-loader", "css-loader"]
+	},
+	{
+		test: /\.less$/,
+		loaders: ["style-loader", "css-loader!less-loader"]
+	},
+	{
+		test: /(\.js)|(\.jsx)$/,
+		exclude: /node_modules/,
+		loaders: ['babel-loader?cacheDirectory=true,presets[]=es2015,presets[]=react']
+	}
+    ]
   },
   plugins: [
 	new webpack.NoErrorsPlugin()
