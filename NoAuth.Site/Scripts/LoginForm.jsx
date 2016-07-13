@@ -25,7 +25,7 @@ export default class LoginForm extends React.Component {
 	populateRandomUser(){
 		this.setState({loading:true});
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'https://randomuser.me/api/', true);		
+		xhr.open('GET', 'https://randomuser.me/api/?seed='+ this.state.claimedIdentifier, true);		
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.onload = (() => {
