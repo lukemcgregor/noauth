@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoAuth.Site", "NoAuth.Site\NoAuth.Site.csproj", "{60903EFF-9FBC-4D8C-A78C-A020BEE5029F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.Security.Providers.NoAuth", "Owin.Security.Providers.NoAuth\Owin.Security.Providers.NoAuth.csproj", "{ECCEF7EF-4708-4651-91E8-4001E3996440}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoAuth.Selenium", "NoAuth.Selenium\NoAuth.Selenium.csproj", "{345A5441-AABE-402A-A0EB-2990ED94D222}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,12 @@ Global
 		{ECCEF7EF-4708-4651-91E8-4001E3996440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECCEF7EF-4708-4651-91E8-4001E3996440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECCEF7EF-4708-4651-91E8-4001E3996440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.CodeAnalysis|Any CPU.ActiveCfg = Release|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.CodeAnalysis|Any CPU.Build.0 = Release|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345A5441-AABE-402A-A0EB-2990ED94D222}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

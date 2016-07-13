@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>$id$</id>
+		<version>$version$</version>
+		<authors>Luke McGregor</authors>
+		<description>NoAuth is an authentication provider to test OAuth offering ZERO SECURITY. Great for running in UI tests or to test wierd OAuth edge cases. This library provides the helpers for selenuium to easially integrate the authentication loop into your code.</description>
+		<projectUrl>https://github.com/lukemcgregor/noauth</projectUrl>
+		<licenseUrl>https://raw.githubusercontent.com/lukemcgregor/noauth/master/LICENSE</licenseUrl>
+	</metadata>
+</package>

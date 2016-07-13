@@ -11,7 +11,7 @@ export default class LoginForm extends React.Component {
 		super(props);
 		this.state = {
 			claimedIdentifier: this.guid(),
-			loading: true,
+			loading: false,
 			claims: []
 		};		
 		this.addClaim = this.addClaim.bind(this);		
@@ -19,15 +19,17 @@ export default class LoginForm extends React.Component {
 		this.claimedIdentifierChanged = this.claimedIdentifierChanged.bind(this);		
 		this.claimTypeChanged = this.claimTypeChanged.bind(this);		
 		this.claimValueChanged = this.claimValueChanged.bind(this);
+		this.populateRandomUser = this.populateRandomUser.bind(this);
 
 	}
-	componentDidMount(){
+	populateRandomUser(){
+		this.setState({loading:true});
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', 'https://randomuser.me/api/', true);		
 		xhr.setRequestHeader("Content-type", "application/json");
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.onload = (() => {
-			var claims = this.state.claims.slice(0);
+			var claims = [];
 			_.forEach(this.props.availableClaims, (x)=>{
 				if(x.Default){
 					var val = JSON.parse(xhr.responseText).results[0][x.Name.toLowerCase()];
@@ -89,21 +91,21 @@ export default class LoginForm extends React.Component {
 			return (<div className='form-group' key={index}>
 				<div className="col-md-offset-1 col-md-5">
 					<Select 
-						name={`Claims[${index}].Type`} 
-						className='claim-type' 
-						placeholder='Claim Type' 
-						value={claim.type} 
-						allowCreate
-						addLabelText='{label}'
-						onChange={this.claimTypeChanged.bind(this,index)} 
-						options={_.map(this.props.availableClaims,(x)=>{return { value: x.Value, label: x.Value } })} />
-				</div>
-				<div className="col-md-5">
-					<input className='claim-value' name={`Claims[${index}].Value`} className='form-control' placeholder='Claim Value' value={claim.value} onChange={this.claimValueChanged.bind(this,index)} />
+		name={`Claims[${index}].Type`} 
+		className='claim-type' 
+		placeholder='Claim Type' 
+		value={claim.type} 
+		allowCreate
+		addLabelText='{label}'
+		onChange={this.claimTypeChanged.bind(this,index)} 
+		options={_.map(this.props.availableClaims,(x)=>{return { value: x.Value, label: x.Value } })} />
+</div>
+<div className="col-md-5">
+	<input className='claim-value' name={`Claims[${index}].Value`} className='form-control' placeholder='Claim Value' value={claim.value} onChange={this.claimValueChanged.bind(this,index)} />
 				</div>
 			</div>);
-		});
-	}
+});
+}
 	render() {
 		return (
 			<form className='form-horizontal' method='post'>
@@ -113,16 +115,19 @@ export default class LoginForm extends React.Component {
 						<input id='claimed-identifier' name='ClaimedIdentifier' className='form-control' value={this.state.claimedIdentifier} onChange={this.claimedIdentifierChanged} />
 					</div>
 				</div>
-				{this.renderClaims()}
+{this.renderClaims()}
 				<div className='col-md-offset-1 col-md-10' style={{textAlign: 'right'}}>
 					<a href='#' onClick={this.addClaim}>Add claim</a>
 				</div>
-				<div className="form-group">
-					<div className="col-md-12" style={{textAlign: 'center', marginTop: '40px'}}> 
+				<div className="form-group" style={{ marginTop: '40px'}}>
+					<div className="col-md-6" style={{textAlign: 'right'}}> 
+						<button id='populate-random-user' type="button" className="btn btn-lg btn-default" disabled={this.state.loading} onClick={this.populateRandomUser} title="Thanks to randomuser.me">Populate random user</button>
+					</div>
+					<div className="col-md-6"> 
 						<button id='login' type="submit" className="btn btn-lg btn-success" disabled={this.state.loading}>Log in</button>
 					</div>
 				</div>
 			</form>
 		);
-	}
+}
 }
