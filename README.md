@@ -26,8 +26,6 @@ Its really easy to integrate NoAuth into your .NET application.
 				
 In your Startup.Auth.cs file enable NoAuth with the fluent syntax, its also a good idea to put this behind a configuration toggle (like appsettings) so that you can turn NoAuth right off in production.
 
-<img src="https://ci.appveyor.com/api/projects/status/u0nqgu4hdurn5ae8/branch/master?svg=true"/>
-
 <pre class="prettyprint lang-csharp">
 if (ConfigurationManager.AppSettings["auth.noauth"] == "enabled")
 {
