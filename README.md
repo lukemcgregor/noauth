@@ -50,7 +50,7 @@ NoAuth is all about testing so I have also provided Selenium helpers to make usi
 					</p>
 				</div>
 	
-	After you click the NoAuth button in your site, you can use the NoAuth driver extensions (in using NoAuth.Selenium;) to do one of the following:
+After you click the NoAuth button in your site, you can use the NoAuth driver extensions (in using NoAuth.Selenium;) to do one of the following:
 	
 <pre class="prettyprint lang-csharp">
 //Sign in with a brand new completely random user.
