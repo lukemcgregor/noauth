@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dist\login.entry.js" />
+    <Content Include="favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\login.js" />
     <Content Include="Web.config" />
