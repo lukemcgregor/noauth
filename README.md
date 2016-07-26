@@ -19,13 +19,13 @@ I have written a number of OAuth based applications and am a big believer in UIT
 Its really easy to integrate NoAuth into your .NET application.
 
 <div class="nuget-badge">
-					<p>
-						<code>
-							Install-Package Owin.Security.Providers.NoAuth
-						</code>
-					</p>
-				</div>
-				
+	<p>
+		<code>
+			Install-Package Owin.Security.Providers.NoAuth
+		</code>
+	</p>
+</div>
+
 In your Startup.Auth.cs file enable NoAuth with the fluent syntax, its also a good idea to put this behind a configuration toggle (like appsettings) so that you can turn NoAuth right off in production.
 
 <pre class="prettyprint lang-csharp">
