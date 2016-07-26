@@ -42,13 +42,13 @@ That’s it you’re done, you should now be able to sign in with NoAuth.
 
 NoAuth is all about testing so I have also provided Selenium helpers to make using NoAuth in UI tests easier.
 
-				<div class="nuget-badge">
-					<p>
-						<code>
-							Install-Package NoAuth.Selenium
-						</code>
-					</p>
-				</div>
+<div class="nuget-badge">
+	<p>
+		<code>
+			Install-Package NoAuth.Selenium
+		</code>
+	</p>
+</div>
 	
 After you click the NoAuth button in your site, you can use the NoAuth driver extensions (in using NoAuth.Selenium;) to do one of the following:
 	
