@@ -2,6 +2,8 @@
 
 <img src="https://ci.appveyor.com/api/projects/status/u0nqgu4hdurn5ae8/branch/master?svg=true"/>
 
+[Docs](http://noauth.azurewebsites.net/)
+
 ##What the security?
 
 NoAuth makes no claims at security, in fact a user can make ANY claim via NoAuth with no checks at all. For this reason it's probably not OK to include NoAuth in your production applications.
