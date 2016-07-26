@@ -1,0 +1,134 @@
+﻿@model object
+@using Newtonsoft.Json;
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+	<title>Index</title>
+
+	<style type="text/css">
+		.header {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 110px;
+			text-align: center;
+			font-weight: bold;
+			color: red;
+		}
+
+			.header > .glyphicon {
+				top: 2px;
+				margin-left: -22px;
+				font-size: 83px;
+				font-weight: bold;
+			}
+
+		.nuget-badge code {
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			background-color: #202020;
+			border: 4px solid silver;
+			border-radius: 5px;
+			box-shadow: 2px 2px 3px #6e6e6e;
+			color: #e2e2e2;
+			display: block;
+			font: 1.5em 'andale mono','lucida console',monospace;
+			line-height: 1.5em;
+			overflow: auto;
+			padding: 15px;
+		}
+
+			.nuget-badge code:before {
+				content: "PM> ";
+			}
+	</style>
+</head>
+<body>
+	<div>
+		<div class="header">
+			<span>N</span> <span class="glyphicon glyphicon-ban-circle"></span> <span>AUTH</span>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>
+					What the security?
+				</h2>
+				<p>
+					NoAuth makes no claims at security, in fact a user can make ANY claim via NoAuth with no checks at all. For this reason it's probably not OK to include NoAuth in your production applications.
+				</p>
+				<h2>
+					Whats the point?
+				</h2>
+				<p>
+					I have written a number of OAuth based applications and am a big believer in UITesting. NoAuth makes it easy to test applications that require OAuth and look at how your application will respond to changing claims.
+				</p>
+				<h2>
+					Whats do I need to do?
+				</h2>
+				<h3>.NET</h3>
+				<p>
+					Its really easy to integrate NoAuth into your .NET application.
+				</p>
+				<div class="nuget-badge">
+					<p>
+						<code>
+							Install-Package Owin.Security.Providers.NoAuth
+						</code>
+					</p>
+				</div>
+				<p>
+					In your Startup.Auth.cs file enable NoAuth with the fluent syntax, its also a good idea to put this behind a configuration toggle (like appsettings) so that you can turn NoAuth right off in production.
+				</p>
+<pre class="prettyprint lang-csharp">
+if (ConfigurationManager.AppSettings["auth.noauth"] == "enabled")
+{
+	app.UseNoAuthAuthentication();
+}</pre>
+				<p>
+					Then add a new login button in your site (with a toggle to turn it off as well) which calls /account/external-login/NoAuth (or whatever your site configures as the external login target.
+				</p>
+				<p>
+					That’s it you’re done, you should now be able to sign in with NoAuth.
+				</p>
+				<h2>
+					What about UI Tests?
+				</h2>
+				<p>
+					NoAuth is all about testing so I have also provided Selenium helpers to make using NoAuth in UI tests easier.
+				</p>
+				<div class="nuget-badge">
+					<p>
+						<code>
+							Install-Package NoAuth.Selenium
+						</code>
+					</p>
+				</div>
+				<p>
+					After you click the NoAuth button in your site, you can use the NoAuth driver extensions (in using NoAuth.Selenium;) to do one of the following:
+				</p>
+				<pre class="prettyprint lang-csharp">
+//Sign in with a brand new completely random user.
+driver.SignInWithNoAuth();
+
+//Sign in with a consistent user so you can sign in and out with the same account. 
+//The deets for this account will be random on the first access but stay the same over multiple requests.
+driver.SignInWithNoAuth(claimedIdentifier);
+
+//Sign in with a user with an explicit set of claims, No data will be randomly generated in this case.
+driver.SignInWithNoAuth(claimedIdentifier, new Claim[]{ });</pre>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
