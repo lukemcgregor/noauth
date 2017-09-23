@@ -4,17 +4,17 @@
 
 [Docs](http://noauth.azurewebsites.net/)
 
-##What the security?
+## What the security?
 
 NoAuth makes no claims at security, in fact a user can make ANY claim via NoAuth with no checks at all. For this reason it's probably not OK to include NoAuth in your production applications.
 
-##Whats the point?
+## Whats the point?
 
 I have written a number of OAuth based applications and am a big believer in UITesting. NoAuth makes it easy to test applications that require OAuth and look at how your application will respond to changing claims.
 
-##Whats do I need to do?
+## Whats do I need to do?
 
-###.NET
+### .NET
 
 Its really easy to integrate NoAuth into your .NET application.
 
@@ -38,7 +38,7 @@ Then add a new login button in your site (with a toggle to turn it off as well) 
 
 That’s it you’re done, you should now be able to sign in with NoAuth.
 
-##What about UI Tests?
+## What about UI Tests?
 
 NoAuth is all about testing so I have also provided Selenium helpers to make using NoAuth in UI tests easier.
 
